@@ -1,4 +1,8 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 
 //create the class name//
 class Laptop
@@ -7,7 +11,7 @@ class Laptop
     public $state = 'on';
     public $battery= 'full';
     public $pluggedIn = 'no';
-    
+
 
 }
 
