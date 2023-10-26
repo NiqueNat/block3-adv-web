@@ -4,17 +4,22 @@
 class Laptop
 {
 
-    public $state = 1;
-    public $battery= 100;
-
-   
+    public $state = 'on';
+    public $battery= 'full';
+    public $pluggedIn = 'no';
+    
 
 }
 
 //Object//
 $schoolbook = new Laptop();
 
+echo $schoolbook->state . '<br>';
+
+$pluggedIn = 'no'; 
+
+if ($pluggedIn) 
+echo 'Your laptop is plugged in!';
 
 
-echo $schoolbook->battery;
 ?>
