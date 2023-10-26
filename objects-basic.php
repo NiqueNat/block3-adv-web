@@ -12,8 +12,20 @@ class Laptop
     public $battery= 'full';
     public $pluggedIn = 'no';
 
-
+    
 }
+
+$battery = 100;	
+	
+function laptop($battery, $amount){
+        return $battery += $amount;
+    }
+
+$battery = laptop($battery, 100);
+echo $battery;
+
+
+
 
 //Object//
 $schoolbook = new Laptop();
@@ -23,7 +35,7 @@ echo $schoolbook->state . '<br>';
 $pluggedIn = 'no'; 
 
 if ($pluggedIn) 
-echo 'Your laptop is plugged in!';
+echo 'Your laptop is not plugged in!';
 
 
 ?>
