@@ -1,13 +1,20 @@
 <?php
 
-class BankAccount
+//create the class name//
+class Laptop
 {
-    public $accountNumber;
-    public $balance;
+
+    public $state = 1;
+    public $battery= 100;
+
+   
+
 }
 
-$account = new BankAccount();
+//Object//
+$schoolbook = new Laptop();
 
-$account->accountNumber = 1;
-$account->balance = 100;
 
+
+echo $schoolbook->battery;
+?>
