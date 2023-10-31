@@ -36,6 +36,4 @@ $pluggedIn = 'no';
 
 if ($pluggedIn) 
 echo 'Your laptop is not plugged in!';
-
-
 ?>
