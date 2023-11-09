@@ -1,39 +1,84 @@
 <?php
+
 ini_set('display_errors', 1);
-// ini_set('display_startup_errors', 1);
-// error_reporting(E_ALL);
 
+$globalId = 0;
 
-//create the class name//
-class Laptop
+class BankAccount
 {
+    private $accountNumber;
+    // private $owner;
+    // private $balance = 0;
+    private $overdraft = 100;
 
-    public $state = 'on';
-    public $battery= 'full';
-    public $pluggedIn = 'no';
-
-    
-}
-
-$battery = 100;	
-	
-function laptop($battery, $amount){
-        return $battery += $amount;
+    public function __construct(private $owner, private $balance = 0)
+    {
+        global $globalId;
+        $globalId++;
+        $this->accountNumber = $globalId;
+        // $this->owner = $name;
+        // $this->balance = $amount;
     }
 
-$battery = laptop($battery, 100);
-echo $battery;
+    public function getOwner()
+    {
+        return $this->owner;
+    }
 
+    public function getId()
+    {
+        return $this->accountNumber;
+    }
+    public function getBalance()
+    {
+        return $this->balance;
+    }
+    private function setBalance($balance)
+    {
+        $this->balance = $balance;
+    }
+    public function deposit($amount)
+    {
+        $this->setBalance($this->getBalance() + $amount);
+    }
+    public function withdrawl($amount)
+    {
+        // 0 - 200 = -200 < -100 (insufficient funds)
+        if ($this->getBalance() - $amount < -$this->overdraft) {
+            echo "Insufficient funds";
+        } else {
+            $this->setBalance($this->getBalance() - $amount);
+        }
+    }
+}
 
+// $account = new BankAccount();
 
+// $account->accountNumber = 1;
+// $account->balance = 100;
 
-//Object//
-$schoolbook = new Laptop();
+// echo "Account #: ", $account->accountNumber;
+// echo "<br>";
+// echo "Balance: ", $account->balance;
 
-echo $schoolbook->state . '<br>';
+$account1 = new BankAccount("John", 1000);
+echo "account1 id: ", $account1-> getId(), " owner", $account1->getOwner();
+echo "<br>";
+$account1->deposit(100);
+echo "Balance: ", $account1->getBalance();
+echo "<br>";
 
-$pluggedIn = 'no'; 
+$account2 = new BankAccount("Tommy", 0);
+echo "account2 id: ", $account2-> getId(), " owner", $account2->getOwner();
+echo "<br>";
+// $account2->withdrawl(200);
+$account2->withdrawl(99);
+echo "<br>";
+echo "Balance: ", $account2->getBalance();
+echo "<br>";
 
-if ($pluggedIn) 
-echo 'Your laptop is not plugged in!';
-?>
+$account3 = new BankAccount("Peter", 2);
+echo "account3 id: ", $account3-> getId(), " owner", $account3->getOwner();
+echo "<br>";
+echo "Balance: ", $account3->getBalance();
+echo "<br>";
