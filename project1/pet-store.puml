@@ -1,0 +1,30 @@
+@startuml
+
+class Species {
+  SpeciesID()
+  SpeciesName()
+}
+
+class Breed extends Species {
+  BreedID()
+  BreedName()
+  SpeciesID()
+  PureBred()
+  MixedBreed()
+}
+
+class Toys {
+  ToysID()
+  ToysName()
+  BestFor()
+}
+
+class Pricing extends Toys{
+  ItemID()
+  ItemType()
+  Cost()
+  OnSale()
+}
+
+
+@enduml
