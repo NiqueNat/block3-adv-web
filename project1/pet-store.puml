@@ -3,6 +3,9 @@
 class Species {
   SpeciesID()
   SpeciesName()
+  _construct()
+get_species_id()
+get_species_name
 }
 
 class Breed extends Species {
@@ -11,12 +14,19 @@ class Breed extends Species {
   SpeciesID()
   PureBred()
   MixedBreed()
+_construct()
+get_breed_ID()
+get_breed_name()
+get_breed_isPure()
+get_breed_isMixed
 }
 
 class Toys {
   ToysID()
   ToysName()
   BestFor()
+_construct()
+get_toys_ID()
 }
 
 class Pricing extends Toys{
@@ -24,6 +34,7 @@ class Pricing extends Toys{
   ItemType()
   Cost()
   OnSale()
+_construct()
 }
 
 
