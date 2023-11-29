@@ -1,11 +1,14 @@
 @startuml
 
-class Species {
-  SpeciesID()
-  SpeciesName()
-  _construct()
-get_species_id()
-get_species_name
+class Pets{
+  age()
+  color()
+  pets_nutered
+
+}
+
+class Pets extends Species {
+
 }
 
 class Breed extends Species {
@@ -19,6 +22,14 @@ get_breed_ID()
 get_breed_name()
 get_breed_isPure()
 get_breed_isMixed
+}
+
+class Species {
+  SpeciesID()
+  SpeciesName()
+  _construct()
+get_species_id()
+get_species_name
 }
 
 class Toys {
@@ -39,3 +50,6 @@ _construct()
 
 
 @enduml
+
+
+<!--life expectencies/maintance-->
