@@ -1,55 +1,48 @@
 @startuml
 
-class Pets{
-  age()
-  color()
-  pets_nutered
-
-}
-
-class Pets extends Species {
-
-}
-
-class Breed extends Species {
-  BreedID()
-  BreedName()
-  SpeciesID()
-  PureBred()
-  MixedBreed()
-_construct()
-get_breed_ID()
-get_breed_name()
-get_breed_isPure()
-get_breed_isMixed
+class Pets {
+  - age: int
+  - color: string
+  - isNeutered: boolean
 }
 
 class Species {
-  SpeciesID()
-  SpeciesName()
-  _construct()
-get_species_id()
-get_species_name
+  - speciesID: int
+  - speciesName: string
+}
+
+class Breed {
+  - breedID: int
+  - breedName: string
+  - speciesID: int
+  - isPureBred: boolean
+  - isMixedBreed: boolean
+  + _construct()
+  + getBreedID(): int
+  + getBreedName(): string
+  + getSpeciesID(): int
+  + getIsPureBred(): boolean
+  + getIsMixedBreed(): boolean
 }
 
 class Toys {
-  ToysID()
-  ToysName()
-  BestFor()
-_construct()
-get_toys_ID()
+  - toysID: int
+  - toysName: string
+  - bestFor: string
+  + _construct()
+  + getToysID(): int
 }
 
-class Pricing extends Toys{
-  ItemID()
-  ItemType()
-  Cost()
-  OnSale()
-_construct()
+class Pricing {
+  - itemID: int
+  - itemType: string
+  - cost: double
+  - onSale: boolean
+  + _construct()
 }
 
+Pets --|> Species
+Breed --|> Species
+Toys --|> Pricing
 
 @enduml
-
-
-<!--life expectencies/maintance-->
