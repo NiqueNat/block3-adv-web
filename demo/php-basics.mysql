@@ -27,5 +27,5 @@ SELECT * FROM `drinks` NATURAL JOIN drinkType NATURAL JOIN drinkTemp NATURAL JOI
 
 <!--https://en.wikipedia.org/wiki/Join_(SQL)-->
 
-
+CREATE TABLE `testchat_`.`sales2001` (`ID` INT NOT NULL AUTO_INCREMENT , `person` VARCHAR NOT NULL , `amount` INT NOT NULL , PRIMARY KEY (`ID`)) ENGINE = InnoDB;
 
