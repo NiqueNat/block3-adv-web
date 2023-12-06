@@ -1,0 +1,120 @@
+-- Create Species table
+CREATE TABLE Species (
+    SpeciesID VARCHAR(256) PRIMARY KEY,
+    SpeciesName VARCHAR(256) NOT NULL
+);
+
+-- Create Breeds table
+CREATE TABLE Breeds (
+    BreedID VARCHAR(256) PRIMARY KEY,
+    BreedName VARCHAR(256) NOT NULL,
+    SpeciesID VARCHAR(256),
+    PureBred BOOLEAN,
+    MixedBreed BOOLEAN,
+    FOREIGN KEY (SpeciesID) REFERENCES Species(SpeciesID)
+);
+
+-- Create Toys table
+CREATE TABLE Toys (
+    ToysID VARCHAR(256) PRIMARY KEY,
+    ToysName VARCHAR(256) NOT NULL,
+    BestFor VARCHAR(256) NOT NULL
+);
+
+-- Create Pricing table
+CREATE TABLE Pricing (
+    ItemID VARCHAR(256) PRIMARY KEY,
+    ItemType VARCHAR(256) NOT NULL,
+    Cost DECIMAL(10, 2) NOT NULL,
+    OnSale BOOLEAN
+);
+
+-- Create Pets table
+CREATE TABLE Pets (
+    PetID VARCHAR(256) PRIMARY KEY,
+    PetName VARCHAR(256) NOT NULL,
+    BreedID VARCHAR(256),
+    SpeciesID VARCHAR(256),
+    FOREIGN KEY (BreedID) REFERENCES Breeds(BreedID),
+    FOREIGN KEY (SpeciesID) REFERENCES Species(SpeciesID)
+);
+
+-- Insert data into Species table
+INSERT INTO Species (SpeciesID, SpeciesName) VALUES
+    ('dg1', 'Labrador Retriever'),
+    ('dg2', 'German Shepherd'),
+    ('dg3', 'Beagle'),
+    ('dg4', 'Golden Retriever'),
+    ('dg5', 'Poodle'),
+    ('dg6', 'New Species');
+    ('ct1', 'Persian cats'),
+    ('ct2', 'Sphynx'),
+    ('ct3', 'Ragdoll'),
+    ('ct4', 'British Shorthair');
+
+-- Insert data into Breeds table
+INSERT INTO Breeds (BreedID, BreedName, SpeciesID, PureBred, MixedBreed) VALUES
+    ('dg1', 'Labrador Retriever', 'dg1', true, false),
+    ('dg2', 'German Shepherd', 'dg2', true, false),
+    ('dg3', 'Beagle', 'dg3', true, false),
+    ('dg4', 'Golden Retriever', 'dg4', true, false),
+    ('dg5', 'Poodle', 'dg5', false, true),
+    ('dg6', 'New Breed', 'dg6', true, false);
+    ('ct1', 'Persian cats', 'ct1', true, false),
+    ('ct2', 'Sphynx', 'ct2', true, false),
+    ('ct3', 'Ragdoll', 'ct3', false, true),
+    ('ct4', 'British Shorthair', 'ct4', true, false);
+
+-- Insert data into Toys table
+INSERT INTO Toys (ToysID, ToysName, BestFor) VALUES
+    ('ty1', 'Bead Ball', 'all'),
+    ('ty2', 'Leashboss Unstuffed Crinkle Dog Toys', 'all'),
+    ('ty3', 'Plush Toys', 'all'),
+    ('ty4', 'Chew Toys', 'all'),
+    ('ty5', 'Heartbeat Stuffed Dog Toy', 'dog'),
+    ('ty6', 'Cat Toy Wand', 'cat'),
+    ('ty7', 'Plush Toys', 'all'),
+    ('ty8', 'Cat Tree', 'cat'),
+    ('ty9', 'Cat Scratcher', 'cat');
+
+    -- Insert data into Pricing table
+INSERT INTO Pricing (ItemID, ItemType, Cost, OnSale) VALUES
+    ('dg1', 'Dog', 5.99, false),
+    ('dg2', 'Dog', 8.99, false),
+    ('dg3', 'Dog', 12.99, false),
+    ('dg4', 'Dog', 5.99, false),
+    ('dg5', 'Dog', 9.99, false),
+    ('ct1', 'Cat', 4.99, false),
+    ('ct2', 'Cat', 8.99, false),
+    ('ct3', 'Cat', 29.99, false),
+    ('ct4', 'Cat', 18.99, false);
+
+    -- Insert data into Pets table
+INSERT INTO Pets (PetID, PetName, BreedID, SpeciesID) VALUES
+    ('PetID1', 'PetName1', 'BreedID1', 'SpeciesID1'),
+    ('PetID2', 'PetName2', 'BreedID2', 'SpeciesID2'),
+    ('PetID3', 'PetName3', 'BreedID3', 'SpeciesID3');
+
+ -- Insert data into Pets table
+INSERT INTO Pets (PetID, PetName, BreedID, SpeciesID) VALUES
+    ('dg1', 'Labrador Retriever', 'dg1', 'dg1'),
+    ('dg2', 'German Shepherd', 'dg2', 'dg2'),
+    ('dg3', 'Beagle', 'dg3', 'dg3'),
+    ('dg4', 'Golden Retriever','dg4', 'dg4'),
+    ('dg5', 'Poodle', 'dg5', 'dg5'),
+    ('dg6', 'New Breed','dg6', 'dg6'),
+    ('ct1', 'Persian cats','ct1', 'ct1'),
+    ('ct2', 'Sphynx', 'ct2', 'ct2'),
+    ('ct3', 'Ragdoll', 'ct3', 'ct3'),
+    ('ct4', 'British Shorthair','ct4', 'ct4');
+    ('dg7', 'New Dog', 'dg1', 'dg1'),
+    ('dg8', 'Another New Dog', 'dg2', 'dg2');
+
+-- SELECT query to retrieve information with joins
+SELECT * FROM Pets;
+SELECT * FROM Toys;
+SELECT * FROM Pricing;
+SELECT Breeds.BreedName, Species.SpeciesName FROM Breeds JOIN Species ON Breeds.SpeciesID = Species.SpeciesID;
+
+SELECT Pets.PetID, Pets.PetName, Breeds.BreedName, Species.SpeciesName FROM Pets JOIN Breeds ON Pets.BreedID = Breeds.BreedID JOIN Species ON Pets.SpeciesID = Species.SpeciesID LIMIT 0, 25;
+
