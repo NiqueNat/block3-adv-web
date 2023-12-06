@@ -32,7 +32,7 @@ if ($forwards == $backwards) {
     echo "palindrome!";
 }
 
-check for spaces
+//check for spaces
 //ignor or skip
 //then compare
 
