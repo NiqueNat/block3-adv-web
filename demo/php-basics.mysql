@@ -1,0 +1,31 @@
+<!-- CREATE TABLE `testchat_`.`drinkType` (`drinkTypeID` INT NOT NULL AUTO_INCREMENT , `drinkTypeName` VARCHAR(256) NOT NULL , PRIMARY KEY (`drinkTypeID`)) ENGINE = InnoDB;
+CREATE TABLE `testchat_`.`drinkTemp` (`drinkTempID` INT NOT NULL AUTO_INCREMENT , PRIMARY KEY (`drinkTempID`)) ENGINE = InnoDB;
+CREATE TABLE `testchat_`.`drinkStrength` (`drinkStrengthID` INT NOT NULL AUTO_INCREMENT , PRIMARY KEY (`drinkStrengthID`)) ENGINE = InnoDB;
+CREATE TABLE `testchat_`.`drinkSize` (`drinkSizeID` INT NOT NULL AUTO_INCREMENT , PRIMARY KEY (`drinkSizeID`)) ENGINE = InnoDB;
+INSERT INTO `drinkTemp` (`drinkTempID`, `drinkTempName`) VALUES (NULL, 'Cold'), (NULL, 'Hot');
+INSERT INTO `drinkSize` (`drinkSizeID`, `drinkSizeName`) VALUES (NULL, 'Large');
+
+CREATE TABLE `testchat_`.`drinks` (`drinkID` INT NOT NULL AUTO_INCREMENT , `drinkTypeId` INT NOT NULL , `drinkSizeID` INT NOT NULL , `dinkStrengthID` INT NOT NULL , `drinkTempID` INT NOT NULL , `drinkName` VARCHAR(256) NOT NULL , PRIMARY KEY (`drinkID`)) ENGINE = InnoDB;
+
+
+
+
+ALTER TABLE `drinks` ADD CONSTRAINT `drinkTempID` FOREIGN KEY (`drinkTempID`) REFERENCES `drinkTemp`(`drinkTempID`) ON DELETE RESTRICT ON UPDATE RESTRICT; ALTER TABLE `drinks` ADD CONSTRAINT `drinkTypeId` FOREIGN KEY (`drinkTypeId`) REFERENCES `drinkType`(`drinkTypeID`) ON DELETE RESTRICT ON UPDATE RESTRICT; ALTER TABLE `drinks` ADD CONSTRAINT `drinkStrengthID` FOREIGN KEY (`dinkStrengthID`) REFERENCES `drinkStrength`(`drinkStrengthID`) ON DELETE RESTRICT ON UPDATE RESTRICT; ALTER TABLE `drinks` ADD CONSTRAINT `drinkSizeID` FOREIGN KEY (`drinkSizeID`) REFERENCES `drinkSize`(`drinkSizeID`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+
+INSERT INTO `drinks` (`drinkID`, `drinkTypeId`, `drinkSizeID`, `dinkStrengthID`, `drinkTempID`, `drinkName`) VALUES (NULL, '1', '2', '1', '1', 'Cappuccino'), (NULL, '1', '1', '1', '2', 'Expresso')
+
+INSERT INTO `drinks` (`drinkID`, `drinkTypeId`, `drinkSizeID`, `dinkStrengthID`, `drinkTempID`, `drinkName`) VALUES (NULL, '6', '3', '4', '1', 'Kiwi Smoothie'), (NULL, '6', '3', '1', '1', ' Pineapple Smoothie');
+
+SELECT * FROM `drinks` NATURAL JOIN drinkType NATURAL JOIN drinkTemp NATURAL JOIN drinkStrength NATURAL JOIN drinkSize;
+
+SELECT * FROM `drinks` NATURAL JOIN drinkType NATURAL JOIN drinkTemp NATURAL JOIN drinkStrength NATURAL JOIN drinkSize WHERE drinkSize.drinkSizeName = 'small';
+
+
+
+//setup implementation in plesk for the pet-store, have commands for select and joins, sorting, filtering items, md file for sql commands due,sql file and md file for the joins -->
+
+<!--https://en.wikipedia.org/wiki/Join_(SQL)-->
+
+
+
