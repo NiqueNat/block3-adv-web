@@ -6,11 +6,10 @@ CREATE TABLE Species (
 
 -- Create Breeds table
 CREATE TABLE Breeds (
-    BreedID VARCHAR(256) PRIMARY KEY,
-    BreedName VARCHAR(256) NOT NULL,
-    SpeciesID VARCHAR(256),
-    PureBred BOOLEAN,
-    MixedBreed BOOLEAN,
+    BreedID VARCHAR(255) PRIMARY KEY,
+    BreedName VARCHAR(255),
+    SpeciesID VARCHAR(255),
+    BreedType ENUM('Pure', 'Mixed'),
     FOREIGN KEY (SpeciesID) REFERENCES Species(SpeciesID)
 );
 
@@ -46,24 +45,24 @@ INSERT INTO Species (SpeciesID, SpeciesName) VALUES
     ('dg3', 'Beagle'),
     ('dg4', 'Golden Retriever'),
     ('dg5', 'Poodle'),
-    ('dg6', 'New Species');
+    ('dg6', 'New Species'),
     ('ct1', 'Persian cats'),
     ('ct2', 'Sphynx'),
     ('ct3', 'Ragdoll'),
     ('ct4', 'British Shorthair');
 
 -- Insert data into Breeds table
-INSERT INTO Breeds (BreedID, BreedName, SpeciesID, PureBred, MixedBreed) VALUES
-    ('dg1', 'Labrador Retriever', 'dg1', true, false),
-    ('dg2', 'German Shepherd', 'dg2', true, false),
-    ('dg3', 'Beagle', 'dg3', true, false),
-    ('dg4', 'Golden Retriever', 'dg4', true, false),
-    ('dg5', 'Poodle', 'dg5', false, true),
-    ('dg6', 'New Breed', 'dg6', true, false);
-    ('ct1', 'Persian cats', 'ct1', true, false),
-    ('ct2', 'Sphynx', 'ct2', true, false),
-    ('ct3', 'Ragdoll', 'ct3', false, true),
-    ('ct4', 'British Shorthair', 'ct4', true, false);
+INSERT INTO Breeds (BreedID, BreedName, SpeciesID, BreedType) VALUES
+    ('dg1', 'Labrador Retriever', 'dg1', 'Pure'),
+    ('dg2', 'German Shepherd', 'dg2', 'Pure'),
+    ('dg3', 'Beagle', 'dg3', 'Pure'),
+    ('dg4', 'Golden Retriever', 'dg4', 'Pure'),
+    ('dg5', 'Poodle', 'dg5', 'Mixed'),
+    ('dg6', 'New Breed', 'dg6', 'Pure'),
+    ('ct1', 'Persian cats', 'ct1', 'Pure'),
+    ('ct2', 'Sphynx', 'ct2', 'Pure'),
+    ('ct3', 'Ragdoll', 'ct3', 'Mixed'),
+    ('ct4', 'British Shorthair', 'ct4', 'Pure');
 
 -- Insert data into Toys table
 INSERT INTO Toys (ToysID, ToysName, BestFor) VALUES

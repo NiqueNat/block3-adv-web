@@ -38,3 +38,19 @@ SELECT * FROM sales2001 WHERE amount < 800000 EXCEPT SELECT * FROM sales2001 WHE
 SELECT * FROM sales2001 WHERE amount < 800000;
 SELECT * FROM sales2001 WHERE amount < 800000 AND amount > 9000 and amount < 1000000;
 SELECT * FROM sales2001 WHERE amount < 1000000 EXcept SELECT * FROM sales2001 WHERE amount = 800000;
+
+
+SELECT Quantity AS qty FROM Orders;
+
+SELECT * FROM Orders WHERE Quantity BETWEEN 1 AND 100;
+
+SELECT o1.*
+FROM (
+    SELECT *
+    FROM Orders
+    WHERE Quantity BETWEEN 1 AND 100) o1
+LEFT JOIN (
+    SELECT *
+    FROM Orders
+    WHERE Quantity BETWEEN 50 AND 75) o2
+ON o1.id = o2.id
