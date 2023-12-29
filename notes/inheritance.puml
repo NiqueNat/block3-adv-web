@@ -1,0 +1,57 @@
+' @startuml
+' scale 3
+' class ClassName {
+'     +public
+'     -private
+'     #protected
+'     +publicMethod()
+'     -privateMethod()
+'     #protectedMethod()
+' }
+
+' class Grandparent {
+'     age
+'     talk()
+' }
+
+' class Parent extends Grandparent {
+'     talk()
+' }
+
+' class Child extends Parent {
+'     cry()
+' }
+
+' class BankAccount {
+'     -balance
+'     +__construct($balance)
+'     +getBalance()
+'     +deposit($amount)
+'     +withdrawl($amount)
+' }
+
+' class CheckingAccount extends BankAccount {
+'     -transactions
+'     -withdrawlLimit
+'     -monthlyFee
+'     +__construct($balance, $withdrawlLimit)
+'     +withdrawl($amount)
+' }
+
+' class SavingAccount extends BankAccount {
+'     -interestRate
+'     +__construct($balance, $interestRate)
+'     +setInterestRate($interestRate)
+'     +addInterest()
+' }
+
+'class Vehicle {
+'     move()
+' }
+' class Car extends Vehicle
+' class Bike extends Vehicle
+' class Boat extends Vehicle
+' class Bus extends Vehicle
+' class Train extends Vehicle
+' class Plane extends Vehicle
+' @enduml

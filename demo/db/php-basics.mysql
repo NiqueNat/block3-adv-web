@@ -1,0 +1,56 @@
+<!-- CREATE TABLE `testchat_`.`drinkType` (`drinkTypeID` INT NOT NULL AUTO_INCREMENT , `drinkTypeName` VARCHAR(256) NOT NULL , PRIMARY KEY (`drinkTypeID`)) ENGINE = InnoDB;
+CREATE TABLE `testchat_`.`drinkTemp` (`drinkTempID` INT NOT NULL AUTO_INCREMENT , PRIMARY KEY (`drinkTempID`)) ENGINE = InnoDB;
+CREATE TABLE `testchat_`.`drinkStrength` (`drinkStrengthID` INT NOT NULL AUTO_INCREMENT , PRIMARY KEY (`drinkStrengthID`)) ENGINE = InnoDB;
+CREATE TABLE `testchat_`.`drinkSize` (`drinkSizeID` INT NOT NULL AUTO_INCREMENT , PRIMARY KEY (`drinkSizeID`)) ENGINE = InnoDB;
+INSERT INTO `drinkTemp` (`drinkTempID`, `drinkTempName`) VALUES (NULL, 'Cold'), (NULL, 'Hot');
+INSERT INTO `drinkSize` (`drinkSizeID`, `drinkSizeName`) VALUES (NULL, 'Large');
+
+CREATE TABLE `testchat_`.`drinks` (`drinkID` INT NOT NULL AUTO_INCREMENT , `drinkTypeId` INT NOT NULL , `drinkSizeID` INT NOT NULL , `dinkStrengthID` INT NOT NULL , `drinkTempID` INT NOT NULL , `drinkName` VARCHAR(256) NOT NULL , PRIMARY KEY (`drinkID`)) ENGINE = InnoDB;
+
+
+
+
+ALTER TABLE `drinks` ADD CONSTRAINT `drinkTempID` FOREIGN KEY (`drinkTempID`) REFERENCES `drinkTemp`(`drinkTempID`) ON DELETE RESTRICT ON UPDATE RESTRICT; ALTER TABLE `drinks` ADD CONSTRAINT `drinkTypeId` FOREIGN KEY (`drinkTypeId`) REFERENCES `drinkType`(`drinkTypeID`) ON DELETE RESTRICT ON UPDATE RESTRICT; ALTER TABLE `drinks` ADD CONSTRAINT `drinkStrengthID` FOREIGN KEY (`dinkStrengthID`) REFERENCES `drinkStrength`(`drinkStrengthID`) ON DELETE RESTRICT ON UPDATE RESTRICT; ALTER TABLE `drinks` ADD CONSTRAINT `drinkSizeID` FOREIGN KEY (`drinkSizeID`) REFERENCES `drinkSize`(`drinkSizeID`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+
+INSERT INTO `drinks` (`drinkID`, `drinkTypeId`, `drinkSizeID`, `dinkStrengthID`, `drinkTempID`, `drinkName`) VALUES (NULL, '1', '2', '1', '1', 'Cappuccino'), (NULL, '1', '1', '1', '2', 'Expresso')
+
+INSERT INTO `drinks` (`drinkID`, `drinkTypeId`, `drinkSizeID`, `dinkStrengthID`, `drinkTempID`, `drinkName`) VALUES (NULL, '6', '3', '4', '1', 'Kiwi Smoothie'), (NULL, '6', '3', '1', '1', ' Pineapple Smoothie');
+
+SELECT * FROM `drinks` NATURAL JOIN drinkType NATURAL JOIN drinkTemp NATURAL JOIN drinkStrength NATURAL JOIN drinkSize;
+
+SELECT * FROM `drinks` NATURAL JOIN drinkType NATURAL JOIN drinkTemp NATURAL JOIN drinkStrength NATURAL JOIN drinkSize WHERE drinkSize.drinkSizeName = 'small';
+
+
+
+//setup implementation in plesk for the pet-store, have commands for select and joins, sorting, filtering items, md file for sql commands due,sql file and md file for the joins -->
+
+<!--https://en.wikipedia.org/wiki/Join_(SQL)-->
+
+CREATE TABLE `testchat_`.`sales2001` (`ID` INT NOT NULL AUTO_INCREMENT , `person` VARCHAR NOT NULL , `amount` INT NOT NULL , PRIMARY KEY (`ID`)) ENGINE = InnoDB;
+
+SELECT person, amount FROM `sales2003` UNION SELECT person, amount FROM sales2001;
+SELECT person, amount FROM `sales2003` UNION ALL SELECT person, amount FROM sales2001;
+SELECT person, amount FROM sales2001 UNION ALL SELECT person, amount FROM sales2002 UNION ALL SELECT person, amount FROM sales2003 ORDER BY amount DESC;
+SELECT person, amount FROM sales2001 UNION ALL SELECT person, amount FROM sales2002 UNION ALL SELECT person, amount FROM sales2003 ORDER BY amount DESC, person ASC;
+SELECT * FROM sales2001 WHERE amount < 25 INTERSECT SELECT * FROM `sales2001` WHERE amount < 10;
+SELECT * FROM sales2001 WHERE amount < 800000 EXCEPT SELECT * FROM sales2001 WHERE amount < 10000;
+SELECT * FROM sales2001 WHERE amount < 800000;
+SELECT * FROM sales2001 WHERE amount < 800000 AND amount > 9000 and amount < 1000000;
+SELECT * FROM sales2001 WHERE amount < 1000000 EXcept SELECT * FROM sales2001 WHERE amount = 800000;
+
+
+SELECT Quantity AS qty FROM Orders;
+
+SELECT * FROM Orders WHERE Quantity BETWEEN 1 AND 100;
+
+SELECT o1.*
+FROM (
+    SELECT *
+    FROM Orders
+    WHERE Quantity BETWEEN 1 AND 100) o1
+LEFT JOIN (
+    SELECT *
+    FROM Orders
+    WHERE Quantity BETWEEN 50 AND 75) o2
+ON o1.id = o2.id
