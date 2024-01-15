@@ -10,7 +10,7 @@ include_once __DIR__ . '/../models/baseModel.php';
 
 class controller
 {
-    private $pdo;
+    private $pdo; 
     private $PetsModel;
     private $SpeciesModel;
     private $BreedModel;
@@ -18,7 +18,7 @@ class controller
 
     public function __construct($conn)
     {
-        $this->pdo = $conn;
+        $this->pdo = $conn; 
         $this->PetsModel = new Pets($conn);
         $this->SpeciesModel = new Species($conn);
         $this->BreedModel = new Breed($conn);
@@ -45,46 +45,90 @@ class controller
     }
 
     //  PET TABLE MODEL
-    public function addPet()
-    {
-        if (isset($_POST['age'], $_POST['color'], $_POST['isNeutered'], $_POST['pet_breed'], $_POST['pet_species'])) {
-            $pet_age = $_POST['age'];
-            $pet_color = $_POST['color'];
-            $isNeutered = $_POST['isNeutered'];
-            $pet_breed = $_POST['pet_breed'];
-            $pet_species = $_POST['pet_species'];
-            $result = $this->PetsModel->insertPets($pet_age, $pet_color, $isNeutered, $pet_breed, $pet_species);
-            if ($result) {
-                echo "Pet added successfully $pet_age, $pet_color, $isNeutered, $pet_breed, $pet_species";
-            } else {
-                echo "Error adding pet";
-            }
-        } else {
-            echo "All fields are required.";
+   public function addPet()
+{
+    if (isset($_POST['name'], $_POST['gender'], $_POST['age'], $_POST['color'], $_POST['breedID'], $_POST['speciesID'])) {
+      
+        $petName = isset($_POST['name']) ? $_POST['name'] : null;
+
+     
+        if ($petName === "") {
+            $petName = null;
         }
+
+     
+        $pet_gender = $_POST['gender'];
+        $pet_age = $_POST['age'];
+        $pet_color = $_POST['color'];
+        $breedID = $_POST['breedID'];
+        $species_id = $_POST['speciesID'];
+
+       
+        $result = $this->PetsModel->insertPets($petName, $pet_gender, $pet_age, $pet_color, $breedID, $species_id);
+
+        if ($result) {
+            echo "Pet added successfully $petName, $pet_gender, $pet_age, $pet_color, $breedID, $species_id";
+        } else {
+            echo "Error adding pet";
+        }
+    } else {
+        echo "All fields are required.";
     }
+}
 
 
-    public function getPets()
-    {
-        $stmt = $this->pdo->prepare("SELECT petID, age, color, isNeutered, pet_breed, pet_species, name FROM Pets");
-        $stmt->execute();
+// Inside the controller class
+public function getPets()
+{
+    $stmt = $this->pdo->query("SELECT petID, name, age, color, isNeutered, pet_breed, pet_species FROM Pets");
+    $pets = [];
+    while ($row = $stmt->fetch()) {
+        $pet = new stdClass();
+        $pet->petID = $row['petID'];
+        $pet->name = $row['name'];
+        $pet->age = $row['age'];
+        $pet->color = $row['color'];
+        $pet->isNeutered = $row['isNeutered'];
+        $pet->pet_breed = $row['pet_breed'];
+        $pet->pet_species = $row['pet_species'];
 
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $pets[] = $pet;
     }
+    return $pets;
+}
+
+
+public function displayPets() {
+    $pets = $this->getPets(); 
+   
+    foreach ($pets as $pet) {
+        $this->displayPet($pet);
+    }
+}
+
+public function displayPet($pet) {
+    echo "Pet ID: " . $pet->petID . "\n";
+    echo "Name: " . $pet->name . "\n";
+    echo "Age: " . $pet->age . "\n";
+    echo "Color: " . $pet->color . "\n";
+    echo "Is Neutered: " . ($pet->isNeutered ? "Yes" : "No") . "\n";
+    echo "Breed ID: " . $pet->pet_breed . "\n";
+    echo "Species ID: " . $pet->pet_species . "\n";
+    echo "------------------------\n";
+}
 
 
     //  SPECIES TABLE MODEL
 
     public function addSpeciesType()
     {
-
+       
         if (!isset($_POST['name']) || empty($_POST['name'])) {
             echo "Please enter a species name.";
         } else {
-
+           
             $speciesName = $_POST['name'];
-
+  
             $this->SpeciesModel->insertSpecies($speciesName);
             echo "Species added successfully: $speciesName";
         }
@@ -97,11 +141,11 @@ class controller
 
     public function deleteSpeciesType()
     {
-
+       
         if (isset($_POST['pet_speciesID'])) {
-
+           
             $speciesID = $_POST['pet_speciesID'];
-
+         
             $result = $this->SpeciesModel->deleteSpecies($speciesID);
             if ($result) {
                 echo "Species deleted successfully: $speciesID";
@@ -196,3 +240,4 @@ if (isset($_POST['submit']) && $_POST['submit'] == 'pet_list') {
 
 $controller->pet_list();
 
+?>

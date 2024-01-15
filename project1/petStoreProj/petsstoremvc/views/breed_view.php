@@ -8,11 +8,11 @@ if ($breeds) {
         <th>Breed Type</th>
         <th>Update</th>
     </tr>";
-    foreach ($breeds as $breed) {
+    foreach ($breed as $breed) {
         echo "<td>" . $breed['pet_breedID'] . "</td>";
         echo "<td>" . $breed['pet_breedName'] . "</td>";
         echo "<td>";
-        include 'views/updateBreed.php';
+        include '../views/breed_list.php';
         echo "</td>";
         echo "</tr>";
     }
