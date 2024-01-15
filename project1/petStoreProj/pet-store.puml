@@ -1,0 +1,49 @@
+@startuml
+
+class Pets {
+  - age: int
+  - color: string
+  - isNeutered: boolean
+  -pet_breed
+  -pet_species
+}
+
+class Species {
+  - speciesID: int
+  - speciesName: string
+}
+
+class Breed {
+  - breedID: int
+  - breedName: string
+  ' - speciesID: int
+  ' - isPureBred: boolean
+  ' - isMixedBreed: boolean
+  ' + _construct()
+  ' + getBreedID(): int
+  ' + getBreedName(): string
+  ' + getSpeciesID(): int
+  ' + getIsPureBred(): boolean
+  ' + getIsMixedBreed(): boolean
+}
+
+class Toys {
+  - toysID: int
+  - toysName: string
+  - bestFor: string
+  ' + _construct()
+  ' + getToysID(): int
+}
+
+class Pricing {
+  -pet_toy_id
+  -pet_name
+  -pet_toy_price
+}
+
+Pets --|> Species
+Pets --|> Breed
+Pets --|> Toys
+Toys --|> Pricing
+
+@enduml
