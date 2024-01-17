@@ -17,27 +17,9 @@ error_reporting(E_ALL);
 
 
 <section class="wrapper">
-    <h3>Add a species</h3>
-    <form method="POST">
-        <label for="name">Species:</label>
-        <input type="text" id="name" name="name" required>
 
-        <input type="submit" name="submit_species" value="Submit">
-        <input type="reset" name="reset" value="Reset">
-    </form>
-
-    <h3>Add a toy</h3>
-    <form method="POST">
-        <label for="name">Toy:</label>
-        <input type="text" id="name" name="name" required>
-        <label for="price">Price:</label>
-        <input type="text" id="price" name="price" required>
-
-        <input type="submit" name="submit_toy" value="Submit">
-        <input type="reset" name="reset" value="Reset">
-    </form>
-
-    <h3>Add a pet</h3>
+    <!--Pet-->
+<h3>Add a pet</h3>
     <form method="POST">
         <label for="name">name:</label>
         <input type="text" id="name" name="name" required>
@@ -68,4 +50,30 @@ error_reporting(E_ALL);
         <input type="submit" name="submit_pet" value="Submit">
         <input type="reset" name="reset" value="Reset">
     </form>
+
+    <!--Species-->
+
+    <h3>Add a species</h3>
+    <form method="POST">
+        <label for="name">Species:</label>
+        <input type="text" id="name" name="name" required>
+
+        <input type="submit" name="submit_species" value="Submit">
+        <input type="reset" name="reset" value="Reset">
+    </form>
+
+
+        <!--Toys-->
+    <h3>Add a toy</h3>
+    <form method="POST">
+        <label for="name">Toy:</label>
+        <input type="text" id="name" name="name" required>
+        <label for="price">Price:</label>
+        <input type="text" id="price" name="price" required>
+
+        <input type="submit" name="submit_toy" value="Submit">
+        <input type="reset" name="reset" value="Reset">
+    </form>
+
+ 
 </section>

@@ -21,6 +21,7 @@ error_reporting(E_ALL);
                 echo "Pet data is missing some keys.";
                 continue;
             }
+            
             echo "<tr>";
             echo "<td>" . $pet['pet_id'] . "</td>";
             echo "<td>" . $pet['pet_name'] . "</td>";

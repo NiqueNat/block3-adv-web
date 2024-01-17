@@ -13,7 +13,7 @@ if ($species) {
         echo "<td>" . $specie['pet_species_id'] . "</td>";
         echo "<td>" . $specie['pet_species_type'] . "</td>";
         echo "<td>";
-        include 'views/updateSpeciesTypeForm.php';
+        include '../views/updateSpeciesTypeForm.php';
         echo "</td>";
         echo "</tr>";
     }

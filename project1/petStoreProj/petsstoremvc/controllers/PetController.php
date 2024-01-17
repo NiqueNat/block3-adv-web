@@ -4,10 +4,16 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-include_once '../models/model.php';
+include_once 'models/model.php';
 
 class PetController
 {
+
+    public function menuLinks(){
+        include 'views/links.php'; 
+    }
+
+
     private $PetModel;
     private $SpeciesModel;
     private $BreedModel;
@@ -28,7 +34,7 @@ class PetController
         $species = $this->SpeciesModel->getAllSpecies();
         $breeds = $this->BreedModel->getAllBreeds();
         $toys = $this->getToys();
-        include "../views/petForm.php";
+        include "views/petForm.php";
     }
 
 
@@ -40,15 +46,29 @@ class PetController
     
         // Check if form is submitted
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            if (isset($_POST['submit']) && $_POST['submit'] == 'petForm') {
+            if (isset($_POST['submit_pet'])) {
                 $this->addPet();
+            } elseif (isset($_POST['submit_species'])) {
+                $this->addSpeciesType();
+            } elseif (isset($_POST['submit_toy'])) {
+                $this->addToyType();
             }
         }
     
         // Include the view file
-        include '../views/petView.php';
+        include 'views/petView.php';
     }
+
+
     // PET TABLE MODEL
+
+    // public function displayPetForm()
+    // {
+    //     $species = $this->SpeciesModel->getAllSpecies();
+    //     $breed = $this->BreedModel->getAllBreeds();
+    //     include "../view/petForm.php";
+    // }
+
     public function addPet()
     {
         if (
@@ -173,7 +193,7 @@ class PetController
     }
 }
 
-include_once '../controllers/config.php';
+include_once 'controllers/config.php';
 $connect2DA = new ConnectionDA(
     $servername,
     $username,
@@ -182,12 +202,40 @@ $connect2DA = new ConnectionDA(
 );
 $controller = new PetController($connect2DA);
 
+$controller->petForm();
+
+$controller->menuLinks();
+
+
+
 
 // Call addPet() only if the form is submitted
-if (isset($_POST['submit']) && $_POST['submit'] == 'petForm') {
+// if (isset($_POST['submit']) && $_POST['submit'] == 'petForm') {
+//     $controller->addPet();
+// }
+
+if (isset($_POST['submit_pet'])) {
     $controller->addPet();
+    echo "Pet added";
 }
 
-$controller = new PetController($connect2DA);
-$controller->petForm();
+//Pet Page
+if(isset($_GET['page'])) {
+    if($_GET['page']=='toy'){
+        $controller->display();
+    }else if ($_GET['page']== 'addPet'){
+        $controller->display();
+    }
+}
+
+
+if(isset($_GET['page'])) {
+    if($_GET['page']=='pet'){
+        $controller->display();
+    }else if ($_GET['page']== 'addPet'){
+        $controller->display();
+    }
+}
 ?>
+
+<!-- operations always come before displays -->
