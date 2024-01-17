@@ -10,10 +10,10 @@ if ($species) {
 
     </tr>";
     foreach ($species as $specie) {
-        echo "<td>" . $specie['pet_speciesID'] . "</td>";
-        echo "<td>" . $specie['pet_speciesName'] . "</td>";
+        echo "<td>" . $specie['pet_species_id'] . "</td>";
+        echo "<td>" . $specie['pet_species_type'] . "</td>";
         echo "<td>";
-        include 'views/updateSpecies.php';
+        include 'views/updateSpeciesTypeForm.php';
         echo "</td>";
         echo "</tr>";
     }
