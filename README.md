@@ -2,6 +2,11 @@
 Advanced Web Programming
 Sure, here's a brief summary of your project and its components:
 
+
+PET STORE A'AMORE
+live site
+https://myrna67.web582.com/block3-adv-prog/project1/petStoreProj/petsstoremvc/
+
 # Project Summary
 
 This project is a simple pet store application built with PHP. It follows the MVC (Model-View-Controller) design pattern and uses a MySQL database for data storage.
