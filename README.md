@@ -2,12 +2,11 @@
 Advanced Web Programming
 Sure, here's a brief summary of your project and its components:
 
-
-PET STORE A'AMORE
-live site
-https://myrna67.web582.com/block3-adv-prog/project1/petStoreProj/petsstoremvc/
-
 # Project Summary
+
+PET STORE A'MORE
+live site
+https://myrna67.web582.com/block3-adv-prog/project1/petStoreProj/petsstoremvc/ 
 
 This project is a simple pet store application built with PHP. It follows the MVC (Model-View-Controller) design pattern and uses a MySQL database for data storage.
 
@@ -26,7 +25,8 @@ This project is a simple pet store application built with PHP. It follows the MV
 1. **Forms not showing:** The forms for adding a pet, a species, and a toy were not showing up when the page was loaded. This was due to not calling the `petForm()` method when the page was loaded.--I have gotten the forms to display but that is about it. 
 
 2. **Pet not being added to the database:** When the pet form was submitted, the pet was not being added to the `pets` table in the database. This was likely due to an issue with the `insertPet` method in the `PetModel` class.
-3. 
+
+
 ![image](https://github.com/NiqueNat/block3-adv-web/assets/70446500/c44abf3b-447f-46df-a0e3-b611ce48344d)
 
 
@@ -42,6 +42,8 @@ This project is a simple pet store application built with PHP. It follows the MV
 
 
 
-
+PET STORE A'AMORE
+live site
+https://myrna67.web582.com/block3-adv-prog/project1/petStoreProj/petsstoremvc/
 
 
