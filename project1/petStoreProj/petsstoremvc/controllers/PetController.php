@@ -33,32 +33,43 @@ class PetController
         $pets = $this->PetModel->getAllPets();
         $species = $this->SpeciesModel->getAllSpecies();
         $breeds = $this->BreedModel->getAllBreeds();
-        $toys = $this->getToys();
         include "views/petForm.php";
     }
-
-
-    public function display() {
+    public function display()
+    {
         // Fetch data from models
         $pets = $this->PetModel->getAllPets();
         $breeds = $this->BreedModel->getAllBreeds();
         $species = $this->SpeciesModel->getAllSpecies();
+        // $toys = $this->ToyModel->getToys(); // Fetch toys
     
         // Check if form is submitted
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            if (isset($_POST['submit_pet'])) {
+            if (isset($_POST['submit_breed'])) {
+                // Handle breed submission
+                $this->addBreedType();
+            }
+            if (isset($_POST['update_toy'])) {
+                // Handle toy update
+                $this->updateToyName($_POST['toy_id'], $_POST['new_toy_name']);
+            } elseif (isset($_POST['delete_toy'])) {
+                // Handle toy deletion
+                $this->deleteToyType();
+            } elseif (isset($_POST['submit_toy'])) {
+                // Handle toy submission
+                $this->addToyType();
+            } elseif (isset($_POST['submit_pet'])) {
+                // Handle pet submission
                 $this->addPet();
             } elseif (isset($_POST['submit_species'])) {
+                // Handle species submission
                 $this->addSpeciesType();
-            } elseif (isset($_POST['submit_toy'])) {
-                $this->addToyType();
             }
         }
     
         // Include the view file
         include 'views/petView.php';
     }
-
 
     // PET TABLE MODEL
 
@@ -92,6 +103,11 @@ class PetController
     }
 
     // SPECIES TABLE MODEL
+    public function speciesForm()
+{
+    $species = $this->SpeciesModel->getAllSpecies();
+    include "views/speciesForm.php";
+}
     public function addSpeciesType()
     {
         if (!isset($_POST['name']) || empty($_POST['name'])) {
@@ -123,45 +139,82 @@ class PetController
         }
     }
 
-    // BREED TABLE MODEL
-    public function addBreedType()
-    {
-        if (!isset($_POST['name']) || empty($_POST['name'])) {
-            echo "Please enter a breed name.";
+// BREED TABLE MODEL
+public function addBreedType()
+{
+    if (!isset($_POST['name']) || empty($_POST['name'])) {
+        echo "Please enter a breed name.";
+    } else {
+        $breed_name = $_POST['name'];
+        $this->BreedModel->insertBreed($breed_name);
+        echo "Breed added successfully: $breed_name";
+    }
+}
+
+public function updateBreedName($id, $new_breed_name)
+{
+    return $this->BreedModel->updateBreed($id, $new_breed_name);
+}
+
+public function deleteBreedType()
+{
+    if (isset($_POST['pet_breed_id'])) {
+        $breed_id = $_POST['pet_breed_id'];
+        $result = $this->BreedModel->deleteBreed($breed_id);
+        if ($result) {
+            echo "Breed deleted successfully: $breed_id";
         } else {
-            $breed_name = $_POST['name'];
-            $this->BreedModel->insertBreed($breed_name);
-            echo "Breed added successfully: $breed_name";
+            echo "Error deleting breed: $breed_id";
+        }
+    } else {
+        echo "No breed ID provided.";
+    }
+}
+
+public function breedForm()
+{
+    $breeds = $this->BreedModel->getAllBreeds();
+    include "views/breedForm.php";
+}
+
+public function breedView()
+{
+    $breeds = $this->BreedModel->getAllBreeds();
+    include "views/breedView.php";
+}
+    public function displayToyType()
+    {
+        $toys = $this->ToyModel->getToys();
+        if ($toys === false) {
+            error_log('Error fetching toys');
+        } elseif (empty($toys)) {
+            error_log('No toys found');
+        }
+    
+        if (!file_exists('views/toyView.php')) {
+            error_log('toyView.php file does not exist');
+        } else {
+            include 'views/toyView.php';
         }
     }
 
-    public function updateBreedName($id, $new_breed_name)
-    {
-        return $this->BreedModel->updateBreed($id, $new_breed_name);
-    }
-
-    public function deleteBreedType()
-    {
-        if (isset($_POST['pet_breed_id'])) {
-            $breed_id = $_POST['pet_breed_id'];
-            $result = $this->BreedModel->deleteBreed($breed_id);
-            if ($result) {
-                echo "Breed deleted successfully: $breed_id";
-            } else {
-                echo "Error deleting breed: $breed_id";
-            }
-        } else {
-            echo "No breed ID provided.";
-        }
-    }
-
+    public function toyForm()
+{
+    $toys = $this->ToyModel->getToys();
+    include "views/toyForm.php";
+}
     // TOY TABLE MODEL
     public function addToyType()
     {
-        if (isset($_POST['name']) && isset($_POST['price'])) {
+        if (isset($_POST['name']) && !empty($_POST['name']) && isset($_POST['price']) && !empty($_POST['price'])) {
             $toy_name = $_POST['name'];
             $toy_price = $_POST['price'];
-            $this->ToyModel->insertToy($toy_name, $toy_price);
+            $result = $this->ToyModel->insertToy($toy_name, $toy_price);
+            if ($result) {
+                echo "Toy added successfully: $toy_name, $toy_price";
+            } else {
+                echo "Error adding toy";
+            }
         } else {
             echo "Toy name or price not provided.";
         }
@@ -193,6 +246,7 @@ class PetController
     }
 }
 
+
 include_once 'controllers/config.php';
 $connect2DA = new ConnectionDA(
     $servername,
@@ -202,39 +256,57 @@ $connect2DA = new ConnectionDA(
 );
 $controller = new PetController($connect2DA);
 
-$controller->petForm();
-
+// Always display the links
 $controller->menuLinks();
 
-
-
-
-// Call addPet() only if the form is submitted
-// if (isset($_POST['submit']) && $_POST['submit'] == 'petForm') {
-//     $controller->addPet();
-// }
+// Check if the toy form is submitted
+if (isset($_POST['submit_toy'])) {
+    $controller->addToyType();
+    echo "Toy added";
+}
 
 if (isset($_POST['submit_pet'])) {
     $controller->addPet();
     echo "Pet added";
 }
 
-//Pet Page
-if(isset($_GET['page'])) {
-    if($_GET['page']=='toy'){
-        $controller->display();
-    }else if ($_GET['page']== 'addPet'){
-        $controller->display();
+// Check the page parameter
+if (isset($_GET['page'])) {
+    error_log('Page: ' . $_GET['page']);
+    switch ($_GET['page']) {
+        case 'addToyType':
+            $controller->toyForm();
+            break;
+        case 'toy':
+            $controller->displayToyType();
+            break;
+        case 'updateToy':
+            include "views/updateToyForm.php";
+            break;
+        case 'deleteToy':
+            include "views/deleteToy.php"; 
+            break;
+        case 'pet':
+            $controller->display();
+            break;
+        case 'addPet':
+            $controller->petForm();
+            break;
+        case 'addSpecies':
+            $controller->speciesForm();
+            break;
+        case 'addBreed':
+            $controller->breedForm();
+            break;
+            case 'breedView':
+                $controller->breedView();
+                break;
+        default:
+            echo "Page not found.";
+            break;
     }
-}
-
-
-if(isset($_GET['page'])) {
-    if($_GET['page']=='pet'){
-        $controller->display();
-    }else if ($_GET['page']== 'addPet'){
-        $controller->display();
-    }
+} else {
+    error_log('No page parameter set');
 }
 ?>
 

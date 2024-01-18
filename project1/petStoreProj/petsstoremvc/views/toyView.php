@@ -1,25 +1,29 @@
 <?php
-// Include the ToyModel class
-require_once '../models/baseModel.php';
+if ($toys) {
+    echo "<table>";
+    echo "<tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Update</th>
+        <th>Delete</th>
+    </tr>";
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
-// Create a new ToyModel object
-$toyModel = new ToyModel();
-
-// Fetch all toys from the database
-$toys = $toyModel->getAllToys();
-
-// Start the HTML
-echo '<h1>Toys</h1>';
-
-// Loop through the toys and display each one
-foreach ($toys as $toy) {
-    echo '<div>';
-    echo '<h2>' . $toy['name'] . '</h2>';
-    echo '<p>' . $toy['description'] . '</p>';
-    echo '</div>';
+    foreach ($toys as $toy) {
+        echo "<tr>";
+        echo "<td>" . $toy['pet_toy_id'] . "</td>";
+        echo "<td>" . $toy['pet_toy_name'] . "</td>";
+        echo "<td>" . $toy['pet_toy_price'] . "</td>";
+        echo "<td>";
+        include 'views/updateToyForm.php'; 
+        echo "</td>";
+        echo "<td>";
+        include 'views/deleteToy.php';
+        echo "</td>";
+        echo "</tr>";
+    }
+    echo "</table>";
+} else {
+    echo "No toys found.";
 }
 ?>

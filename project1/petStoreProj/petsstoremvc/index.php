@@ -11,20 +11,20 @@
 
 <body>
  <h1>Pet Store A'more</h1>
-<!-- <?php include './links.php'; ?> -->
+ <?php
+
+//  include 'views/links.php'; 
    
-<!-- controller -->
-<?php
-// include_once '../controllers/config.php';
-include_once '../controllers/PetController.php';
+// Controller
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
 
-//$connect2DA = new ConnectionDA($servername, $username, $password, $dbname);
-//$petController = new PetController($connect2DA);
-//$petController->display();
+include 'controllers/PetController.php';
+
+//ini_set('display_errors', 1);
+//ini_set('display_startup_errors', 1);
+//error_reporting(E_ALL);
+
+
 ?>
 
 

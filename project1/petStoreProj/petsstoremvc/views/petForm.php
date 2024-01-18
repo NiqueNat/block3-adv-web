@@ -51,29 +51,6 @@ error_reporting(E_ALL);
         <input type="reset" name="reset" value="Reset">
     </form>
 
-    <!--Species-->
-
-    <h3>Add a species</h3>
-    <form method="POST">
-        <label for="name">Species:</label>
-        <input type="text" id="name" name="name" required>
-
-        <input type="submit" name="submit_species" value="Submit">
-        <input type="reset" name="reset" value="Reset">
-    </form>
-
-
-        <!--Toys-->
-    <h3>Add a toy</h3>
-    <form method="POST">
-        <label for="name">Toy:</label>
-        <input type="text" id="name" name="name" required>
-        <label for="price">Price:</label>
-        <input type="text" id="price" name="price" required>
-
-        <input type="submit" name="submit_toy" value="Submit">
-        <input type="reset" name="reset" value="Reset">
-    </form>
-
  
+
 </section>
